@@ -1,0 +1,3 @@
+:host, .app-container { height: 100%; display: block; }
+.app-sidenav { width: var(--sidebar-width, 280px); }
+.app-content { padding: 16px; }

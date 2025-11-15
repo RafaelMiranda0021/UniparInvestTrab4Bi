@@ -1,0 +1,31 @@
+<nav class="sidebar" [class.collapsed]="false">
+  <mat-nav-list>
+    <a mat-list-item routerLink="/inicio" routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }">
+      <mat-icon matListItemIcon>dashboard</mat-icon>
+      <span matListItemTitle>Dashboard</span>
+      <span matListItemLine>Visão geral</span>
+    </a>
+  </mat-nav-list>
+  <mat-nav-list>
+    <a mat-list-item routerLink="/inicio/tickers" routerLinkActive="active">
+      <mat-icon matListItemIcon>list_alt</mat-icon>
+      <span matListItemTitle>Tickers</span>
+      <span matListItemLine>Cadastro de Ações</span>
+    </a>
+  </mat-nav-list>
+
+  <mat-nav-list>
+    <a mat-list-item routerLink="/inicio/usuarios" routerLinkActive="active">
+      <mat-icon matListItemIcon>people</mat-icon>
+      <span matListItemTitle>Usuários</span>
+      <span matListItemLine>Cadastro de Usuários</span>
+    </a>
+  </mat-nav-list>
+  <mat-nav-list>
+    <a mat-list-item routerLink="/inicio/configuracao" routerLinkActive="active">
+      <mat-icon matListItemIcon>settings</mat-icon>
+      <span matListItemTitle>Configurações</span>
+    </a>
+  </mat-nav-list>
+</nav>

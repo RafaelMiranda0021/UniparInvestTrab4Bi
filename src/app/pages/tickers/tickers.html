@@ -1,0 +1,44 @@
+<div>
+  <h2>Cadastro de Ações</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <input [(ngModel)]="ticker.empresa" name="empresa"
+        placeholder="Empresa" required/>
+    </div>
+    <div>
+      <input [(ngModel)]="ticker.ticker" name="ticker"
+             placeholder="Ticker" required/>
+    </div>
+    <div>
+      <input [(ngModel)]="ticker.descricao" name="descricao"
+             placeholder="Descrição" required/>
+    </div>
+    <button>Salvar</button>
+  </form>
+
+  <h2>Lista de Ações</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Empresa</th>
+      <th>Ticker</th>
+      <th>Descrição</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let acao of dataSource.data">
+        <td>{{ acao.id }}</td>
+        <td>{{ acao.empresa }}</td>
+        <td>{{ acao.ticker }}</td>
+        <td>{{ acao.descricao }}</td>
+        <td>
+          <button (click)="editarTicker(acao)">Editar</button>
+          <button (click)="deletarTicker(acao.id!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
