@@ -8,7 +8,6 @@ import { Usuario } from '../pages/usuarios/usuario.model';
 })
 export class UsuarioService {
 
-  // Altere a URL para o endpoint de usuários do backend
   private readonly API_URL = 'http://localhost:8080/usuarios';
 
   constructor(private http: HttpClient) { }

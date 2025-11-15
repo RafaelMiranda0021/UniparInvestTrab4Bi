@@ -1,44 +1,62 @@
-<div>
+<div class="crud-container">
   <h2>Cadastro de Ações</h2>
 
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <input [(ngModel)]="ticker.empresa" name="empresa"
-        placeholder="Empresa" required/>
-    </div>
-    <div>
-      <input [(ngModel)]="ticker.ticker" name="ticker"
-             placeholder="Ticker" required/>
-    </div>
-    <div>
-      <input [(ngModel)]="ticker.descricao" name="descricao"
-             placeholder="Descrição" required/>
-    </div>
-    <button>Salvar</button>
+  <form (ngSubmit)="onSubmit()" class="crud-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Empresa</mat-label>
+      <input matInput [(ngModel)]="ticker.empresa" name="empresa" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ticker</mat-label>
+      <input matInput [(ngModel)]="ticker.ticker" name="ticker" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição</mat-label>
+      <input matInput [(ngModel)]="ticker.descricao" name="descricao">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Salvar</button>
   </form>
 
   <h2>Lista de Ações</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Empresa</th>
-      <th>Ticker</th>
-      <th>Descrição</th>
-      <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let acao of dataSource.data">
-        <td>{{ acao.id }}</td>
-        <td>{{ acao.empresa }}</td>
-        <td>{{ acao.ticker }}</td>
-        <td>{{ acao.descricao }}</td>
-        <td>
-          <button (click)="editarTicker(acao)">Editar</button>
-          <button (click)="deletarTicker(acao.id!)">Excluir</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let acao"> {{acao.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="empresa">
+      <mat-header-cell *matHeaderCellDef> Empresa </mat-header-cell>
+      <mat-cell *matCellDef="let acao"> {{acao.empresa}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ticker">
+      <mat-header-cell *matHeaderCellDef> Ticker </mat-header-cell>
+      <mat-cell *matCellDef="let acao"> {{acao.ticker}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="descricao">
+      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+      <mat-cell *matCellDef="let acao"> {{acao.descricao}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+      <mat-cell *matCellDef="let acao">
+        <button mat-icon-button color="primary" (click)="editarTicker(acao)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deletarTicker(acao.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </div>

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Acao } from '../pages/tickers/acao.model';
-import { Usuario } from '../pages/usuarios/usuario.model'; // <-- ADICIONAR
+import { Usuario } from '../pages/usuarios/usuario.model';
 
 export interface Configuracao {
   id?: number;
-  usuario: Usuario; // <-- MODIFICADO (deve ser o usuário ou usuarioId)
+  usuario: Usuario;
   acoesSelecionadas: Acao[];
   intervaloAtualizacaoMs: number;
 }
@@ -25,12 +25,9 @@ export class ConfiguracaoService {
     return this.http.get<Configuracao>(`${this.API_URL}/${id}`);
   }
 
-  // VVV ADICIONAR ESTE MÉTODO VVV
-  // (Depende do backend implementar o endpoint GET /configuracoes/usuario/{usuarioId})
   getByUsuarioId(usuarioId: number): Observable<Configuracao> {
     return this.http.get<Configuracao>(`${this.API_URL}/usuario/${usuarioId}`);
   }
-  // ^^^ ADICIONAR ESTE MÉTODO ^^^
 
   create(config: Configuracao): Observable<Configuracao> {
     return this.http.post<Configuracao>(this.API_URL, config);

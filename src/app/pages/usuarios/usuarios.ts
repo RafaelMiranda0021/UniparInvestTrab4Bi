@@ -4,7 +4,6 @@ import { Usuario } from './usuario.model';
 import { UsuarioService } from '../../service/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,13 +24,13 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './usuarios.html'
-  // Adicione styleUrls se criar um CSS específico
+
 })
 export class UsuariosComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Usuario>([]);
   usuario: Usuario = this.novoUsuario();
-  displayedColumns: string[] = ['id', 'nome', 'email', 'acoes']; // Para MatTable
+  displayedColumns: string[] = ['id', 'nome', 'email', 'acoes'];
 
   constructor(private usuarioService: UsuarioService) { }
 

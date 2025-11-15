@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Acao } from '../tickers/acao.model';
 import { Configuracao, ConfiguracaoService } from '../../service/configuracao.service';
 import { AcaoService } from '../../service/acao.service';
-import { Usuario } from '../usuarios/usuario.model'; // <-- ADICIONAR
-import { UsuarioService } from '../../service/usuario.service'; // <-- ADICIONAR
+import { Usuario } from '../usuarios/usuario.model';
+import { UsuarioService } from '../../service/usuario.service';
 
 // Imports de Estilização (Requisito 4)
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,6 @@ import { MatListModule } from '@angular/material/list';
     FormsModule,
     NgForOf,
     NgIf,
-    // Imports de Estilização
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
@@ -38,19 +37,19 @@ export class ConfiguracaoComponent implements OnInit {
   selecionadas: Acao[] = [];
   intervaloAtualizacaoMs = 5000;
 
-  usuarios: Usuario[] = []; // <-- ADICIONAR
-  usuarioSelecionado: Usuario | null = null; // <-- ADICIONAR
-  configuracaoAtual: Configuracao | null = null; // <-- ADICIONAR
+  usuarios: Usuario[] = [];
+  usuarioSelecionado: Usuario | null = null;
+  configuracaoAtual: Configuracao | null = null;
 
   constructor(
     private acoesService: AcaoService,
     private configuracaoService: ConfiguracaoService,
-    private usuarioService: UsuarioService // <-- ADICIONAR
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
     this.buscarAcoes();
-    this.buscarUsuarios(); // <-- ADICIONAR
+    this.buscarUsuarios();
   }
 
   buscarAcoes(): void {
@@ -60,8 +59,6 @@ export class ConfiguracaoComponent implements OnInit {
     });
   }
 
-  // VVV MÉTODOS ADICIONADOS/MODIFICADOS VVV
-
   buscarUsuarios(): void {
     this.usuarioService.getAll().subscribe({
       next: (res) => (this.usuarios = res),
@@ -69,7 +66,7 @@ export class ConfiguracaoComponent implements OnInit {
     });
   }
 
-  // Carrega a config quando o usuário muda no <mat-select>
+
   onUsuarioChange(): void {
     if (!this.usuarioSelecionado || !this.usuarioSelecionado.id) {
       this.resetarCamposConfig();
@@ -87,9 +84,9 @@ export class ConfiguracaoComponent implements OnInit {
         );
       },
       error: () => {
-        // Se não encontrar, reseta para uma nova config
+
         this.resetarCamposConfig();
-        this.configuracaoAtual = null; // Garante que será um POST
+        this.configuracaoAtual = null;
       }
     });
   }
@@ -125,13 +122,13 @@ export class ConfiguracaoComponent implements OnInit {
     };
 
     if (this.configuracaoAtual && this.configuracaoAtual.id) {
-      // UPDATE (PUT)
+
       this.configuracaoService.update(this.configuracaoAtual.id, config).subscribe({
         next: () => alert('Configuração atualizada!'),
         error: () => alert('Erro ao atualizar configuração'),
       });
     } else {
-      // CREATE (POST)
+
       this.configuracaoService.create(config).subscribe({
         next: (novaConfig) => {
           this.configuracaoAtual = novaConfig; // Armazena a nova config (com ID)

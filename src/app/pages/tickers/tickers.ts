@@ -1,15 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {Acao} from './acao.model';
-import {AcaoService} from '../../service/acao.service';
-import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Acao } from './acao.model';
+import { AcaoService } from '../../service/acao.service';
+import { FormsModule } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
+
+// VVV ADICIONE ESTES IMPORTS VVV
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tickers',
+  standalone: true, // <-- ADICIONE
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf, // <-- ADICIONE
+    // VVV ADICIONE ESTES MÓDULOS VVV
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule,
+    MatIconModule
   ],
   templateUrl: './tickers.html',
   styleUrl: './tickers.css'
@@ -18,7 +33,7 @@ export class Tickers implements OnInit {
 
   dataSource = new MatTableDataSource<Acao>([]);
   ticker: Acao = this.novoTicker();
-
+  displayedColumns: string[] = ['id', 'empresa', 'ticker', 'descricao', 'acoes']; // <-- ADICIONE
 
   constructor(private acoesService: AcaoService) { }
 
@@ -26,22 +41,35 @@ export class Tickers implements OnInit {
     this.buscarAcoes();
   }
 
+  // ... (o restante da sua lógica 'buscarAcoes', 'novoTicker', etc. está correto) ...
+  // ... (Cole o restante do seu arquivo .ts aqui) ...
+
+  // Apenas uma pequena melhoria na validação
+  private validarFormulario(): boolean {
+    if (!this.ticker.empresa || !this.ticker.ticker) {
+      alert('Por favor, preencha os campos Empresa e Ticker.'); // Mensagem melhorada
+      return false;
+    }
+    return true;
+  }
+
+  // ... (Restante dos métodos) ...
   private buscarAcoes() {
     this.acoesService.getAll().subscribe({
-      next: (res) => {
-        this.dataSource.data = res;
-        console.log(JSON.stringify(res));
-      },
-      error: () => alert('Erro ao buscar a lista de ações.')
+        next: (res) => {
+          this.dataSource.data = res;
+          console.log(JSON.stringify(res));
+        },
+        error: () => alert('Erro ao buscar a lista de ações.')
       }
     );
   }
 
   private novoTicker(): Acao {
     return { empresa: '',
-             ticker: '',
-             descricao: ''
-           };
+      ticker: '',
+      descricao: ''
+    };
   }
 
   onSubmit() {
@@ -50,11 +78,11 @@ export class Tickers implements OnInit {
     if(this.ticker.id) { //se tiver id, significa que é uma edição PUT
       this.acoesService.update(this.ticker.id, this.ticker).subscribe({
         next: () => {
-          alert('Ticker criado com sucesso!');
+          alert('Ticker atualizado com sucesso!'); // Corrigido
           this.buscarAcoes();
           this.resetarFormulario();
         },
-        error: () => alert('Erro ao criar o ticker.')
+        error: () => alert('Erro ao atualizar o ticker.') // Corrigido
       });
     } else { //se não tiver id, é um novo CREATE
       this.acoesService.create(this.ticker).subscribe({
@@ -82,14 +110,6 @@ export class Tickers implements OnInit {
         error: () => alert('Erro ao remover o ticker.')
       });
     }
-  }
-
-  private validarFormulario(): boolean {
-    if(!this.ticker.empresa || !this.ticker.ticker) {
-      alert('Por favor, preencha todos os campos obrigatórios.');
-      return false;
-    }
-    return true;
   }
 
   private resetarFormulario() {
