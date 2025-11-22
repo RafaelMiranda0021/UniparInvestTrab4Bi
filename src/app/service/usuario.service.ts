@@ -7,8 +7,7 @@ import { Usuario } from '../pages/usuarios/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-  private readonly API_URL = 'http://localhost:8080/usuarios';
+  private readonly API_URL = 'http://localhost:8081/usuarios';
 
   constructor(private http: HttpClient) { }
 

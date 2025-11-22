@@ -1,23 +1,22 @@
-/* Apenas ajustes de COR para mais contraste */
 .sidebar {
-  width: var(--sidebar-width, 280px);
-  height: 100%;
-  background: #3b4663;                          /* fundo menos azulado e mais claro */
-  border-right: 1px solid rgba(255,255,255,.12); /* linha com mais contraste */
-  overflow-y: auto;
+  height: 98%;
+  background: #3b4663;
+  border-right: 1px solid rgba(255,255,255,.12);
+  overflow-y: hidden;
   transition: width 160ms ease;
+  padding: 1vh;
 }
 
-.sidebar.collapsed { --sidebar-width: 72px; }
-
-/* texto e ícones mais legíveis */
-.sidebar .mat-mdc-list-item        { color: #f3f4f6; } /* texto base do item */
-.sidebar .mat-mdc-list-item-title  { color: #fafafa; } /* título */
-.sidebar .mat-mdc-list-item-line   { color: #cbd5e1; } /* subtítulo/descrição */
+.sidebar .mat-mdc-list-item        { color: #f3f4f6; }
+.sidebar .mat-mdc-list-item-title  { color: #fafafa; }
+.sidebar .mat-mdc-list-item-line   { color: #cbd5e1; }
 .sidebar .mat-mdc-list-item-icon,
-.sidebar mat-icon                  { color: #e5e7eb; } /* ícones */
+.sidebar mat-icon {
+  margin: 0 2vh;
+  color: #e5e7eb;
+  align-self: center;
+}
 
-/* estados com contraste forte */
 .sidebar .mat-mdc-list-item:hover {
   background: rgba(255,255,255,.10);
 }

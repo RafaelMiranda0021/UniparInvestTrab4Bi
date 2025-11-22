@@ -3,7 +3,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Usuario } from './usuario.model';
 import { UsuarioService } from '../../service/usuario.service';
 import { FormsModule } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,19 +14,17 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf,
-    NgIf,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatTableModule,
     MatIconModule
   ],
-  templateUrl: './usuarios.html'
-
+  templateUrl: './usuarios.html',
+  styleUrl: './usuarios.css'
 })
-export class UsuariosComponent implements OnInit {
 
+export class UsuariosComponent implements OnInit {
   dataSource = new MatTableDataSource<Usuario>([]);
   usuario: Usuario = this.novoUsuario();
   displayedColumns: string[] = ['id', 'nome', 'email', 'acoes'];
@@ -54,7 +51,7 @@ export class UsuariosComponent implements OnInit {
   onSubmit() {
     if (!this.validarFormulario()) return;
 
-    if (this.usuario.id) { // Edição (PUT)
+    if (this.usuario.id) {
       this.usuarioService.update(this.usuario.id, this.usuario).subscribe({
         next: () => {
           alert('Usuário atualizado com sucesso!');
@@ -63,7 +60,7 @@ export class UsuariosComponent implements OnInit {
         },
         error: () => alert('Erro ao atualizar o usuário.')
       });
-    } else { // Criação (POST)
+    } else {
       this.usuarioService.create(this.usuario).subscribe({
         next: () => {
           alert('Usuário criado com sucesso!');
@@ -76,7 +73,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   editarUsuario(row: Usuario) {
-    this.usuario = { ...row }; // Copia o objeto para edição
+    this.usuario = { ...row };
   }
 
   deletarUsuario(id: number) {

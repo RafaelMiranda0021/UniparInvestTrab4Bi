@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Acao } from '../tickers/acao.model';
 import { Configuracao, ConfiguracaoService } from '../../service/configuracao.service';
@@ -7,7 +6,6 @@ import { AcaoService } from '../../service/acao.service';
 import { Usuario } from '../usuarios/usuario.model';
 import { UsuarioService } from '../../service/usuario.service';
 
-// Imports de Estilização (Requisito 4)
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -21,8 +19,6 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    NgForOf,
-    NgIf,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
@@ -30,7 +26,8 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatListModule
   ],
-  templateUrl: './configuracao.html'
+  templateUrl: './configuracao.html',
+  styleUrl: './configuracao.css'
 })
 export class ConfiguracaoComponent implements OnInit {
   acoes: Acao[] = [];
@@ -66,25 +63,22 @@ export class ConfiguracaoComponent implements OnInit {
     });
   }
 
-
   onUsuarioChange(): void {
     if (!this.usuarioSelecionado || !this.usuarioSelecionado.id) {
       this.resetarCamposConfig();
       return;
     }
 
-    // Busca a config pelo ID do USUÁRIO
     this.configuracaoService.getByUsuarioId(this.usuarioSelecionado.id).subscribe({
       next: (config) => {
         this.configuracaoAtual = config;
         this.intervaloAtualizacaoMs = config.intervaloAtualizacaoMs;
-        // Mapeia as selecionadas
+
         this.selecionadas = this.acoes.filter(acao =>
           config.acoesSelecionadas.some(aSel => aSel.id === acao.id)
         );
       },
       error: () => {
-
         this.resetarCamposConfig();
         this.configuracaoAtual = null;
       }
@@ -116,22 +110,20 @@ export class ConfiguracaoComponent implements OnInit {
     }
 
     const config: Configuracao = {
-      usuario: this.usuarioSelecionado, // Envia o objeto de usuário
+      usuario: this.usuarioSelecionado,
       acoesSelecionadas: this.selecionadas,
       intervaloAtualizacaoMs: this.intervaloAtualizacaoMs,
     };
 
     if (this.configuracaoAtual && this.configuracaoAtual.id) {
-
       this.configuracaoService.update(this.configuracaoAtual.id, config).subscribe({
         next: () => alert('Configuração atualizada!'),
         error: () => alert('Erro ao atualizar configuração'),
       });
     } else {
-
       this.configuracaoService.create(config).subscribe({
         next: (novaConfig) => {
-          this.configuracaoAtual = novaConfig; // Armazena a nova config (com ID)
+          this.configuracaoAtual = novaConfig;
           alert('Configuração salva com sucesso!');
         },
         error: () => alert('Erro ao salvar configuração'),

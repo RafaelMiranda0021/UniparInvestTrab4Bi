@@ -1,18 +1,16 @@
-.tela-config {
-  padding: 24px;
+.crud-form {
+  box-shadow: 0 4px 15px #0003;
 }
 
-.configs {
+.crud-form .titulo,
+.lista-usuarios .titulo {
+  margin-top: 0;
+}
+
+.lista-usuarios {
   box-shadow: 0 4px 15px #0003;
   padding: 20px;
   border-radius: 8px;
-}
-
-.lista-acoes {
-  box-shadow: 0 4px 15px #0003;
-  border-radius: 8px;
-  max-height: 300px;
-  overflow-y: scroll;
 }
 
 .bt-salvar {
@@ -20,6 +18,14 @@
   --mat-button-protected-label-text-color: white;
   --mat-button-protected-container-color: rgb(75, 201, 75);
   --mat-button-protected-label-text-size: 1.3rem;
+}
+
+.botao-edit:hover {
+  --mat-icon-color: #1788d3;
+}
+
+.botao-delete:hover {
+  --mat-icon-color: #e43e28;
 }
 
 .bt-salvar:hover {

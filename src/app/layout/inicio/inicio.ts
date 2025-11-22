@@ -17,6 +17,4 @@ import {RouterOutlet} from '@angular/router';
   templateUrl: './inicio.html',
   styleUrl: './inicio.css'
 })
-export class Inicio {
-
-}
+export class Inicio { }
