@@ -1,16 +1,17 @@
 <div class="dashboard-container">
-
-  <div *ngIf="dados.length > 0; else semDados" class="cards">
-    <div class="card" *ngFor="let acao of dados">
-      <h3>{{ acao.ticker }}</h3>
-      <p>{{ acao.empresa }}</p>
-      <strong>R$ {{ acao.preco | number: '1.2-2' }}</strong>
+  @if (dados.length > 0) {
+    <div class="cards">
+      @for (acao of dados; track acao.ticker) {
+        <div class="card">
+          <h3>{{ acao.ticker }}</h3>
+          <p>{{ acao.empresa }}</p>
+          <strong>R$ {{ acao.preco | number: '1.2-2' }}</strong>
+        </div>
+      }
     </div>
-  </div>
-
-  <ng-template #semDados>
+  } @else {
     <p class="text-muted">
       Selecione um usuário no menu superior que possua uma configuração salva.
     </p>
-  </ng-template>
+  }
 </div>

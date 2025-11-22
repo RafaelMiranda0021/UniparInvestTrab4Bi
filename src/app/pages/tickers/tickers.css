@@ -1,0 +1,34 @@
+.crud-form {
+  box-shadow: 0 4px 15px #0003;
+}
+
+.crud-form .titulo,
+.lista-acoes .titulo {
+  margin-top: 0;
+}
+
+.lista-acoes {
+  box-shadow: 0 4px 15px #0003;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.botao-edit:hover {
+  --mat-icon-color: #1788d3;
+}
+
+.botao-delete:hover {
+  --mat-icon-color: #e43e28;
+}
+
+.bt-salvar {
+  box-shadow: 0 4px 6px #000a;
+  --mat-button-protected-label-text-color: white;
+  --mat-button-protected-container-color: rgb(75, 201, 75);
+  --mat-button-protected-label-text-size: 1.3rem;
+}
+
+.bt-salvar:hover {
+  box-shadow: 0 4px 6px #000a;
+  --mat-button-protected-container-color: rgb(30, 184, 30);
+}

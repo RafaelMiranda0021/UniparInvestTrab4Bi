@@ -13,7 +13,7 @@ export interface Configuracao {
 
 @Injectable({ providedIn: 'root' })
 export class ConfiguracaoService {
-  private readonly API_URL = 'http://localhost:8080/configuracoes';
+  private readonly API_URL = 'http://localhost:8081/configuracoes';
 
   constructor(private http: HttpClient) {}
 

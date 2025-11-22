@@ -10,7 +10,7 @@ export interface AcaoDashboard {
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
-  private readonly API_URL = 'http://localhost:8080/dashboard';
+  private readonly API_URL = 'http://localhost:8081/dashboard';
 
   constructor(private http: HttpClient) {}
 

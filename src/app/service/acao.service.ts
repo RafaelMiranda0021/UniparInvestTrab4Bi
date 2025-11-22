@@ -7,8 +7,7 @@ import {Acao} from '../pages/tickers/acao.model';
   providedIn: 'root'
 })
 export class AcaoService {
-
-  private readonly API_URL = 'http://localhost:8080/acoes';
+  private readonly API_URL = 'http://localhost:8081/acoes';
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +30,4 @@ export class AcaoService {
   public delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
-
 }

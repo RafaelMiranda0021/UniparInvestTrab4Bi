@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AcaoDashboard, DashboardService } from '../../service/dashboard.service';
 import { ConfiguracaoService } from '../../service/configuracao.service';
-import { DecimalPipe, NgForOf, NgIf } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { UsuarioContextService } from '../../service/usuario-context.service';
 
@@ -10,8 +10,6 @@ import { UsuarioContextService } from '../../service/usuario-context.service';
   standalone: true,
   imports: [
     DecimalPipe,
-    NgForOf,
-    NgIf
   ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
@@ -30,15 +28,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
     this.userSub = this.usuarioContext.usuarioId$.subscribe(usuarioId => {
-
       if (this.timer) clearInterval(this.timer);
       this.dados = [];
       this.configId = null;
 
       if (usuarioId) {
-
         this.configuracaoService.getByUsuarioId(usuarioId).subscribe({
           next: (config) => {
             this.configId = config.id!;
@@ -46,16 +41,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
             this.buscarDados();
 
-
             this.timer = setInterval(() => this.buscarDados(), this.intervaloMs);
           },
-          error: () => {
-
+          error: (e) => {
+            console.warn(e);
             console.warn(`Usuário ${usuarioId} não possui configuração de dashboard.`);
           }
         });
       }
-
     });
   }
 
@@ -78,7 +71,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('Erro ao carregar dados do dashboard:', err);
-
       },
     });
   }

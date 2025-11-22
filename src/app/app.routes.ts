@@ -3,7 +3,7 @@ import { Inicio } from './layout/inicio/inicio';
 import { Tickers } from './pages/tickers/tickers';
 import { ConfiguracaoComponent } from './pages/configuracao/configuracao';
 import { DashboardComponent } from './pages/dashboard/dashboard';
-import { UsuariosComponent } from './pages/usuarios/usuarios'; // <-- ADICIONAR
+import { UsuariosComponent } from './pages/usuarios/usuarios';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -14,9 +14,8 @@ export const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'tickers', component: Tickers },
       { path: 'configuracao', component: ConfiguracaoComponent },
-      { path: 'usuarios', component: UsuariosComponent }, // <-- ADICIONAR
+      { path: 'usuarios', component: UsuariosComponent },
     ]
   },
   { path: '**', redirectTo: 'inicio' },
-
 ];

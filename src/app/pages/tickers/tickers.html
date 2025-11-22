@@ -1,62 +1,63 @@
 <div class="crud-container">
-  <h2>Cadastro de Ações</h2>
-
   <form (ngSubmit)="onSubmit()" class="crud-form">
+    <h2 class="titulo">Cadastro de Ações</h2>
+
     <mat-form-field appearance="fill">
       <mat-label>Empresa</mat-label>
       <input matInput [(ngModel)]="ticker.empresa" name="empresa" required>
     </mat-form-field>
-
     <mat-form-field appearance="fill">
       <mat-label>Ticker</mat-label>
       <input matInput [(ngModel)]="ticker.ticker" name="ticker" required>
     </mat-form-field>
-
     <mat-form-field appearance="fill">
       <mat-label>Descrição</mat-label>
       <input matInput [(ngModel)]="ticker.descricao" name="descricao">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Salvar</button>
+    <button class="bt-salvar" mat-raised-button color="primary" type="submit">Salvar</button>
   </form>
 
-  <h2>Lista de Ações</h2>
+  <br>
 
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="lista-acoes">
+    <h2 class="titulo">Lista de Ações</h2>
 
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let acao"> {{acao.id}} </mat-cell>
-    </ng-container>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let acao"> {{acao.id}} </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="empresa">
-      <mat-header-cell *matHeaderCellDef> Empresa </mat-header-cell>
-      <mat-cell *matCellDef="let acao"> {{acao.empresa}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="empresa">
+        <mat-header-cell *matHeaderCellDef> Empresa </mat-header-cell>
+        <mat-cell *matCellDef="let acao"> {{acao.empresa}} </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="ticker">
-      <mat-header-cell *matHeaderCellDef> Ticker </mat-header-cell>
-      <mat-cell *matCellDef="let acao"> {{acao.ticker}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="ticker">
+        <mat-header-cell *matHeaderCellDef> Ticker </mat-header-cell>
+        <mat-cell *matCellDef="let acao"> {{acao.ticker}} </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="descricao">
-      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
-      <mat-cell *matCellDef="let acao"> {{acao.descricao}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="descricao">
+        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+        <mat-cell *matCellDef="let acao"> {{acao.descricao}} </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="acoes">
-      <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
-      <mat-cell *matCellDef="let acao">
-        <button mat-icon-button color="primary" (click)="editarTicker(acao)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deletarTicker(acao.id!)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="acoes">
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let acao">
+          <button class="botao-edit" mat-icon-button color="primary" (click)="editarTicker(acao)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="botao-delete" mat-icon-button color="warn" (click)="deletarTicker(acao.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
 </div>
